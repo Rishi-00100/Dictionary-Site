@@ -17,6 +17,7 @@ A clean and minimal dictionary web application built with **HTML, CSS & JavaScri
 ## 📸 Preview
 
 <!-- Add a screenshot of your app here -->
+<img width="1919" height="877" alt="Screenshot 2026-05-05 014438" src="https://github.com/user-attachments/assets/65fbc584-ebaf-43b7-ac41-cf7786a4dcf5" />
 
 ---
 
