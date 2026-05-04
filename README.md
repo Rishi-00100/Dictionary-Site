@@ -10,7 +10,7 @@ A clean and minimal dictionary web application built with **HTML, CSS & JavaScri
 
 ## 🔗 Live Demo
 
-👉 [View Live Project](#) -> dictionary-site-iota.vercel.app
+👉 [View Live Project](#) -> https://dictionary-site-nqyzmh8wk-rishi-00100s-projects.vercel.app
 
 ---
 
