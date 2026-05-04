@@ -11,39 +11,61 @@ async function dictionaryFn(word){
 btn.addEventListener('click', fetchAndCreateCard)
 
 async function fetchAndCreateCard() {
-    const data = await dictionaryFn(input.value)
+    try {
+        const data = await dictionaryFn(input.value)
 
-    let partOfSpeechArray = []
-    for(let i = 0; i < data.meanings.length; i++){
-        partOfSpeechArray.push(data.meanings[i].partOfSpeech)
+        // Add this check
+        if(!data || !input.value.trim()){
+            dict.innerHTML = `
+                <div class="card">
+                    <div class="property">
+                        <span>Please enter a valid word!</span>
+                    </div>
+                </div>
+            `
+            return
+        }
+
+        let partOfSpeechArray = []
+        for(let i = 0; i < data.meanings.length; i++){
+            partOfSpeechArray.push(data.meanings[i].partOfSpeech)
+        }
+
+        dict.innerHTML = `
+            <div class="card">
+                <div class="property">
+                    <span>Word:</span>
+                    <span>${data.word}</span>
+                </div>
+                <div class="property">
+                    <span>Phonetics:</span>
+                    <span>${data.phonetic || data.phonetics[1]?.text || 'Not available'}</span>
+                </div>
+                <div class="property">
+                    <span>Audio:</span>
+                    <audio controls src="${data.phonetics.find(p => p.audio)?.audio || ''}"></audio>
+                </div>
+                <div class="property">
+                    <span>Definition:</span>
+                    <span>${data.meanings[0].definitions[0].definition}</span>
+                </div>
+                <div class="property">
+                    <span>Example:</span>
+                    <span>${data.meanings[0].definitions[0].example || 'No example available'}</span>
+                </div>
+                <div class="property">
+                    <span>Parts of Speech:</span>
+                    <span>${partOfSpeechArray.join(', ')}</span>
+                </div>
+            </div>
+        `
+    } catch(error) {
+        dict.innerHTML = `
+            <div class="card">
+                <div class="property">
+                    <span>Word not found! Please try again.</span>
+                </div>
+            </div>
+        `
     }
-
-    dict.innerHTML = `
-        <div class="card">
-            <div class="property">
-                <span>Word:</span>
-                <span>${data.word}</span>
-            </div>
-            <div class="property">
-                <span>Phonetics:</span>
-                <span>${data.phonetic || data.phonetics[1]?.text || 'Not available'}</span>
-            </div>
-            <div class="property">
-                <span>Audio:</span>
-                <audio controls src="${data.phonetics.find(p => p.audio)?.audio || ''}"></audio>
-            </div>
-            <div class="property">
-                <span>Definition:</span>
-                <span>${data.meanings[0].definitions[0].definition}</span>
-            </div>
-            <div class="property">
-                <span>Example:</span>
-                <span>${data.meanings[0].definitions[0].example || 'No example available'}</span>
-            </div>
-            <div class="property">
-                <span>Parts of Speech:</span>
-                <span>${partOfSpeechArray.join(', ')}</span>
-            </div>
-        </div>
-    `
 }
